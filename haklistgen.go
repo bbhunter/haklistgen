@@ -13,6 +13,8 @@ import (
 func main() {
 	list := make(map[string]struct{}) // store the output lines to check for dupes
 	s := bufio.NewScanner(os.Stdin)
+	buf := make([]byte, 0, 64*1024)
+	s.Buffer(buf, 30*1024*1024) // 30mb buffer
 	r := regexp.MustCompile(`[a-zA-Z0-9\.\-\_\/]*`)
 	for s.Scan() {
 		process(s.Text(), list, r)
